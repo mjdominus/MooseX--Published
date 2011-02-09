@@ -26,6 +26,7 @@ sub publish {
 {
   package MooseX::Publish::CanQueryPublished;
   use Moose::Role;
+  use Moose::Util ();
 
   sub get_all_published_method_names {
     my ($meta) = @_;
@@ -34,8 +35,9 @@ sub publish {
 
   sub get_all_published_methods {
     my ($meta) = @_;
-    return grep $_->can('is_published') && $_->is_published,
-      $meta->get_all_methods;
+    return grep Moose::Util::does_role($_, "MooseX::Publish::Published") 
+      && $_->is_published,
+        $meta->get_all_methods;
   }
 }
 
