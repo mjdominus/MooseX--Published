@@ -51,5 +51,4 @@ sub publish {
    );
 }
 
-no Moose;
 1;
