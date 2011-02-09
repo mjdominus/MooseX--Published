@@ -5,7 +5,6 @@ use Moose::Exporter;
 
 Moose::Exporter->setup_import_methods(
       with_meta => [ qw(publish) ],
-      also      => 'Moose',
       class_metaroles => { class => [qw(MooseX::Publish::CanQueryPublished)],
                            method => [ qw(MooseX::Publish::Published) ] },
 );
@@ -35,7 +34,7 @@ sub publish {
 
   sub get_all_published_methods {
     my ($meta) = @_;
-    return grep Moose::Util::does_role($_, "MooseX::Publish::Published") 
+    return grep Moose::Util::does_role($_, "MooseX::Publish::Published")
       && $_->is_published,
         $meta->get_all_methods;
   }
